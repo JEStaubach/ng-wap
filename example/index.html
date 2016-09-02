@@ -1,0 +1,43 @@
+<!doctype html>
+<html ng-app="exampleWapWindow">
+<head>
+    <meta charset="utf-8">
+
+    <title>ngWapWindow demo</title>
+
+    <link rel="stylesheet" href="../css/ng-wap-window/ngWapWindow.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+   <!--<script src="../js/ng-wap-window/ngWapWindow.js"></script>-->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/3.0.2/screenfull.js"></script>
+<script>
+
+function doFull() {
+	var elem = document.getElementById("hi")
+
+	window.addEventListener("load",function() {
+		// Set a timeout...
+		setTimeout(function(){
+			// Hide the address bar!
+			window.scrollTo(0, 1);
+		}, 0);
+	});
+	
+	elem.style.color = "#ff0000";
+//	if (screenfull.enabled) {
+//        screenfull.request();
+//    }
+}
+</script>
+	
+</head>
+
+<body ng-controller="MainCtrl">
+
+	
+	<p id="hi">Hello World!</p>
+	
+	<a href="#" onclick="doFull()">Click me!</a>
+	
+</body>
+</html>
