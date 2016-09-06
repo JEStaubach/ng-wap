@@ -5,39 +5,73 @@
 
     <title>ngWapWindow demo</title>
 
+	
     <link rel="stylesheet" href="../css/ng-wap-window/ngWapWindow.css">
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
    <!--<script src="../js/ng-wap-window/ngWapWindow.js"></script>-->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/3.0.2/screenfull.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/3.0.2/screenfull.js"></script>
 <script>
 
-function doFull() {
-	var elem = document.getElementById("hi")
 
-	window.addEventListener("load",function() {
-		// Set a timeout...
-		setTimeout(function(){
-			// Hide the address bar!
-			window.scrollTo(0, 1);
-		}, 0);
-	});
+		
+function drawStuff() {
+	var w = window.innerWidth;
+	var h = window.innerHeight-1;
 	
-	elem.style.color = "#ff0000";
-//	if (screenfull.enabled) {
-//        screenfull.request();
-//    }
+	var c = document.getElementById("myCanvas");
+	c.width = w;
+	c.height = h;
+	var ctx = c.getContext("2d");
+
+	var grd = ctx.createLinearGradient(0, 0, w, 0);
+	grd.addColorStop(0, "#DAE9F8");
+	grd.addColorStop(1, "#3E6C9A");
+
+	ctx.fillStyle = grd;
+	ctx.fillRect(0, 0, w, h);
+	
+	var lb = document.getElementById("window_buttons_left")
+	var rb = document.getElementById("window_buttons_right")
+	if ($("#window_buttons_left").width() < $("#window_buttons_right").width()) {
+		$("#window_buttons_left").width($("#window_buttons_right").width());
+	} else {
+		$("#window_buttons_right").width($("#window_buttons_left").width());
+	}
+	$("#title").width(w - $("#window_buttons_left").width() - $("#window_buttons_right").width());
 }
+
+function doLoad() {
+	// addapted from: http://stackoverflow.com/questions/4288253/html5-canvas-100-width-height-of-viewport
+    // resize the canvas to fill browser window dynamically
+    $( window ).bind("resize", drawStuff);
+
+	drawStuff();
+}
+
+function doFull() {
+	if (screenfull.enabled) {
+        screenfull.request();
+    }
+}
+
 </script>
 	
 </head>
 
-<body ng-controller="MainCtrl">
+<body id="body" style="margin:0;" onload="doLoad()" ng-controller="MainCtrl">
 
+	<div id="window_container" style="overflow:hidden; background-color:#3E6C9A; display:-ms-flexbox; display:-webkit-flex;display:flex; vertical-align: middle; border:0;">
+	<canvas id="myCanvas" style="position:absolute; z-index:1;">
+	</canvas>
+			<span id="window_buttons_left" style="background-color:red; min-width:50px; z-index:2;">HI, how are you doing today? I'm fine.</span>
+			<span id="title" style="flex:1 1 0; text-align:center; font-family:helvetica; font-size:14px; z-index:2;">Hello World!</span>
+			<span id="window_buttons_right" style="background-color:blue; min-width:20px; z-index:2;">There is stuff here.</span>
+	</div>
+		<a href="#" onclick="doFull()" style="position:relative; z-index:2;">Click me!</a>
 	
-	<p id="hi">Hello World!</p>
 	
-	<a href="#" onclick="doFull()">Click me!</a>
 	
 </body>
 </html>
