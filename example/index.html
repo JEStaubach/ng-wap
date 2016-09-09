@@ -15,10 +15,11 @@
 <script>
 
 
-		
+		var wto;
 function drawStuff() {
+
 	var w = window.innerWidth;
-	var h = window.innerHeight-1;
+	var h = window.innerHeight;
 	
 	var c = document.getElementById("myCanvas");
 	c.width = w;
@@ -31,20 +32,23 @@ function drawStuff() {
 
 	ctx.fillStyle = grd;
 	ctx.fillRect(0, 0, w, h);
+
+	$("#title").width(0);
 	
-	var lb = document.getElementById("window_buttons_left")
-	var rb = document.getElementById("window_buttons_right")
 	if ($("#window_buttons_left").width() < $("#window_buttons_right").width()) {
-		$("#window_buttons_left").width($("#window_buttons_right").width());
+		$("#window_buttons_left").width(Math.ceil($("#window_buttons_right").width()));
+		$("#window_buttons_right").width(Math.ceil($("#window_buttons_right").width()));
 	} else {
-		$("#window_buttons_right").width($("#window_buttons_left").width());
+		if ($("#window_buttons_right").width() < $("#window_buttons_left").width()) {
+			$("#window_buttons_right").width(Math.ceil($("#window_buttons_left").width()));
+			$("#window_buttons_left").width(Math.ceil($("#window_buttons_left").width()));
+		}
 	}
-	$("#title").width(w - $("#window_buttons_left").width() - $("#window_buttons_right").width());
+	
+	$("#title").width(w - 2*Math.ceil($("#window_buttons_left").width()));
 }
 
 function doLoad() {
-	// addapted from: http://stackoverflow.com/questions/4288253/html5-canvas-100-width-height-of-viewport
-    // resize the canvas to fill browser window dynamically
     $( window ).bind("resize", drawStuff);
 
 	drawStuff();
@@ -65,9 +69,9 @@ function doFull() {
 	<div id="window_container" style="overflow:hidden; background-color:#3E6C9A; display:-ms-flexbox; display:-webkit-flex;display:flex; vertical-align: middle; border:0;">
 	<canvas id="myCanvas" style="position:absolute; z-index:1;">
 	</canvas>
-			<span id="window_buttons_left" style="background-color:red; min-width:50px; z-index:2;">HI, how are you doing today? I'm fine.</span>
-			<span id="title" style="flex:1 1 0; text-align:center; font-family:helvetica; font-size:14px; z-index:2;">Hello World!</span>
-			<span id="window_buttons_right" style="background-color:blue; min-width:20px; z-index:2;">There is stuff here.</span>
+			<span id="window_buttons_left" style="display:block-inline; min-width:50px; border:0; background-color:red; z-index:2;">HI, how are you doing today? I'm fine.</span>
+			<span id="title" style="flex:1 1 auto; text-align:center; min-width:50px; font-family:helvetica; font-size:14px; z-index:2;">Hello World!</span>
+			<span id="window_buttons_right" style="display:block-inline: min-width:50px; border:0; background-color:blue; z-index:2;">There is stuff here.</span>
 	</div>
 		<a href="#" onclick="doFull()" style="position:relative; z-index:2;">Click me!</a>
 	
