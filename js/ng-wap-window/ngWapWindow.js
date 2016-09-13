@@ -38,7 +38,7 @@ app.directive('ngwapwindowbuttonsright',function(){
     return {
 		replace: true,
         restrict: 'E',
-        template: '<span id="window_buttons_right" style="display:block-inline: min-width:50px; border:0; background-color:blue; z-index:2;">There is stuff here.</span>',
+        template: '<span id="window_buttons_right" style="display:block-inline; min-width:50px; border:0; background-color:blue; z-index:2;">There is stuff here.</span>',
     };
 });
 
