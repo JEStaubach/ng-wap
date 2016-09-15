@@ -1,9 +1,3 @@
-//function requestFullScreen() {
-//	if (screenfull.enabled) {
-//        screenfull.request();
-//    }
-//}
-
 
 var app = angular.module('app',[]);
 app.directive('ngwapwindow',function(){
@@ -14,7 +8,21 @@ app.directive('ngwapwindow',function(){
 		scope: {
 			title: '@',
 		},
-        template: '<div id="window_container" style="overflow:hidden; background-color:#3E6C9A; display:-ms-flexbox; display:-webkit-flex;display:flex; vertical-align: middle; border:0;" ><ngWapWindowBg></ngWapWindowBg><ngWapWindowButtonsLeft></ngWapWindowButtonsLeft><ngWapWindowTitle title={{title}}></ngWapWindowTitle><ngWapWindowButtonsRight></ngWapWindowButtonsRight></div>',
+        template: '<div class="content" id="window_container" style="overflow:hidden; background-color:#3E6C9A;"><ngWapWindowBg></ngWapWindowBg><ngWapWindowTitleBar></ngWapWindowTitleBar></div>',
+		link: function(scope,el,attrs,ctrl,transclude) {
+			console.log(transclude()[0].innerHTML);
+			console.log(el.find('.content'));
+			el.find('.content').append(transclude()[0].innerHTML);
+		},
+    };
+});
+
+app.directive('ngwapwindowtitlebar',function(){
+    return {
+		transclude: true,
+		replace: true,
+        restrict: 'E',
+        template: '<div id="window_title_bar" style="display:-ms-flexbox; display:-webkit-flex;display:flex; vertical-align: middle; border:0; z-index:2;"><ngWapWindowButtonsLeft><ng-transclude></ng-transclude></ngWapWindowButtonsLeft><ngWapWindowTitle title={{title}}></ngWapWindowTitle><ngWapWindowButtonsRight></ngWapWindowButtonsRight></div>',
     };
 });
 
@@ -29,8 +37,10 @@ app.directive('ngwapwindowbg',function(){
 app.directive('ngwapwindowbuttonsleft',function(){
     return {
 		replace: true,
+		transclude: true,
         restrict: 'E',
-        template: '<span id="window_buttons_left" style="display:block-inline; min-width:50px; border:0; background-color:red; z-index:2;">HI, how are you doing today? I am fine.</span>',
+		//require: '^ngwapwindowtitlebar',
+        template: '<span id="window_buttons_left" style="display:block-inline; min-width:50px; border:0; background-color:red; z-index:2;"><ng-transclude></ng-transclude></span>',
     };
 });
 

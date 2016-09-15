@@ -1,5 +1,5 @@
 <!doctype html>
-<html><!-- ng-app="app"-->
+<html ng-app="app">
 <head>
     <meta charset="utf-8">
 
@@ -65,37 +65,11 @@ function doFull() {
 window.addEventListener('resize', drawStuff, false);
 window.addEventListener('DOMContentLoaded', doLoad, false);
 
-
 </script>
 	
 </head>
 
-<div id="body" style="margin:0;" ng-app="app">
-  <ngWapWindow title="My Title!">
-<!--
-	<ngWapWindowButtonsLeft></ngWapWindowButtonsLeft>
-	<ngWapWindowTitle></ngWapWindowTitle>
-	<ngWapWindowButtonsRight></ngWapWindowButtonsRight>
--->
-	</ngWapWindow>
-  <a href="#" onclick="doFull()" style="position:relative; z-index:2;">Click me!</a>
-</div>
-
-
-
-
-<!--
-<body id="body" style="margin:0;" onload="doLoad()" ng-controller="MainCtrl">
-
-	<div id="window_container" style="overflow:hidden; background-color:#3E6C9A; display:-ms-flexbox; display:-webkit-flex;display:flex; vertical-align: middle; border:0;">
-	<canvas id="myCanvas" style="position:absolute; z-index:1;">
-	</canvas>
-			<span id="window_buttons_left" style="flex-grow: 1;display:block-inline; min-width:50px; border:0; background-color:red; z-index:2;">HI, how are you doing today? I'm fine.</span>
-			<span id="title" style="flex:1 1 auto; text-align:center; min-width:50px; font-family:helvetica; font-size:14px; z-index:2;">Hello World!</span>
-			<span id="window_buttons_right" style="display:block-inline: min-width:50px; border:0; background-color:blue; z-index:2;">There is stuff here.</span>
-	</div>
-		<a href="#" onclick="doFull()" style="position:relative; z-index:2;">Click me!</a>
-</body>
--->
+<ngWapWindow title="My Title!">wakka wakka wakka</ngWapWindow>
+<a href="#" onclick="doFull()" style="position:relative; z-index:2;">Click me!</a>
 
 </html>
